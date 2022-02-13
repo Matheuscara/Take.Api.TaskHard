@@ -26,14 +26,14 @@ namespace Take.Api.TaskHard.Controllers
             _validUserGitHub = new ValidUserGitHubBody();
         }
 
-
         /// <summary>
-        ///     Get repositories in GitHub
+        /// Get filter repositories in Github Organization
         /// </summary>
-        /// <param name="org">Org name</param>
-        /// <param name="direction">Direction of the repositories order</param>
-        /// <param name="type">Repository type</param>
-        /// <param name="perPage">Number of results per page</param>
+        /// <param name="UserGitHubBody">Organization Name - takenet</param>
+        /// <param name="language">Language Filter Name - C#, javascript, java, etc</param>
+        /// <param name="direction">Direction of the repositories order - asc or desc</param>
+        /// <param name="type">Type filter - stars,forks or updated</param>
+        /// <param name="perPage">Number of results per page - 1-5</param>
         [HttpGet("/github/repos")]
         [Authorize]
         [ProducesResponseType(typeof(List<Repository>), StatusCodes.Status200OK)]

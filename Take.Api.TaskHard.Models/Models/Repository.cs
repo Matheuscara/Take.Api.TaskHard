@@ -18,5 +18,8 @@ namespace Take.Api.TaskHard.Models.Models
         [Required]
         [JsonProperty("owner")]
         public Owner Owner { get; set; }
+        [Required]
+        [JsonProperty("language")]
+        public string language { get; set; }
     }
 }

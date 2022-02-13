@@ -9,6 +9,6 @@ namespace Take.Api.TaskHard.Facades.Interfaces
 {
     public interface IGitHubFunctions
     {
-        Task<GirResponseList> ReturnReposUserAsync(UserGitHubBody userGitHubBody);
+        Task<GitResponseList> ReturnReposUserAsync(UserGitHubBody userGitHubBody);
     }
 }

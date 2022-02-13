@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Take.Api.TaskHard.Models.Models
 {
-    public class GirResponseList
+    public class GitResponseList
     {
-        public List<Repository> Repos;
+        [JsonProperty("items")]
+        public List<Repository> items;
     }
 }

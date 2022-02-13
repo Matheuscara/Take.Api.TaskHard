@@ -24,13 +24,12 @@ namespace Take.Api.TaskHard.Services.Services
             }
         }
 
-        public static async Task<GirResponseList> RequestRestEasyGetReposAsync(UserGitHubBody userGitHubBody)
+        public static async Task<GitResponseList> RequestRestEasyGetReposAsync(UserGitHubBody userGitHubBody)
         {
-
-                IGithubClientRepos api = RestEase.RestClient.For<IGithubClientRepos>("https://api.github.com");
-                GirResponseList tokenResponse = await api.GetReposAsync(userGitHubBody.org, userGitHubBody.type, userGitHubBody.direction, userGitHubBody.perPage);
-                return tokenResponse;
-
+            IGithubClientRepos api = RestEase.RestClient.For<IGithubClientRepos>("https://api.github.com");
+            GitResponseList tokenResponse = await api.GetReposAsync(userGitHubBody.language, userGitHubBody.org, userGitHubBody.direction, userGitHubBody.type);
+            return tokenResponse;
+                
         }
     }
 }

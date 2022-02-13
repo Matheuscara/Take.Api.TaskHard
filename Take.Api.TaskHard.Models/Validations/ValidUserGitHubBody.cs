@@ -19,6 +19,9 @@ namespace Take.Api.TaskHard.Models.Validations
                 .NotEmpty().WithMessage("Direction is Required")
                 .Must(BeAValidDirection).WithMessage("Direction must be a 'asc' or 'desc'");
 
+            RuleFor(option => option.language)
+                .NotEmpty().WithMessage("language is Required");
+
             RuleFor(option => option.type)
                 .NotEmpty().WithMessage("Type is Required");
 

@@ -11,9 +11,9 @@ namespace Take.Api.TaskHard.Facades.Facades
 {
     public class GitHubFunctions : IGitHubFunctions
     {
-        public async Task<GirResponseList> ReturnReposUserAsync(UserGitHubBody userGitHubBody)
+        public async Task<GitResponseList> ReturnReposUserAsync(UserGitHubBody userGitHubBody)
         {
-            Func<Task<GirResponseList>> RequestRestEasyGetReposAsync = async () =>
+            Func<Task<GitResponseList>> RequestRestEasyGetReposAsync = async () =>
                 await RequestRestEase.RequestRestEasyGetReposAsync(userGitHubBody);
 
             return await RequestRestEasyGetReposAsync();

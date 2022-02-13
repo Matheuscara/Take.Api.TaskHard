@@ -17,15 +17,14 @@ namespace Take.Api.TaskHard.Services.Services
 
     [Header("Accept", "application/vnd.github.v3+json")]
     [Header("User-Agent", "Andre1999Lopes")]
-
     public interface IGithubClientRepos
     {
-        [Get("orgs/{org}/repos")]
-        Task<GirResponseList> GetReposAsync(
+        [Get("/search/repositories?q=language:{language} org:{org}&order={direction}&sort={type}")]
+        Task<GitResponseList> GetReposAsync(
+            [Path("language")] string language,
             [Path("org")] string org,
-            [Query("type")] string type,
-            [Query("direction")] string direction,
-            [Query("per_page")] int perPage
+            [Path("direction")] string direction,
+            [Path("type")] string type
         );
     }
 }
