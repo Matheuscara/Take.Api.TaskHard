@@ -1,0 +1,56 @@
+trigger:
+  - develop
+  - master
+
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: Operações/template-take-blip
+      ref: refs/tags/v1.3
+
+variables:
+  - group: task-hard-config
+  - name: team
+    value: league
+  - name: skipDecorator
+    value: true
+
+extends:
+  template: template-pipeline.yml@templates
+  parameters:
+    packagename: task-hard
+    type: dotnet
+    to: kubernetes
+    contextpath: 'Api'
+    stages:
+      - name: staging
+        condition:
+          and(or(ne(variables['build.sourceBranchName'], 'master'),
+          ne(variables['build.sourceBranchName'],
+          'main')),ne(variables['Build.Reason'], 'PullRequest'))
+        dependsOn: build
+        environment: staging
+        variables:
+          - task-hard-staging
+        ServiceConnection: 'AKS BOT BETA-STAGING-$(System.TeamProject)'
+      - name: beta
+        condition:
+          and(or(ne(variables['build.sourceBranchName'], 'master'),
+          ne(variables['build.sourceBranchName'],
+          'main')),ne(variables['Build.Reason'], 'PullRequest'))
+        dependsOn: staging
+        environment: beta
+        variables:
+          - task-hard-beta
+        ServiceConnection: 'AKS BOT BETA-STAGING-$(System.TeamProject)'
+      - name: production
+        condition:
+          and(or(eq(variables['build.sourceBranchName'], 'master'),
+          eq(variables['build.sourceBranchName'],
+          'main')),ne(variables['Build.Reason'], 'PullRequest'))
+        dependsOn: beta
+        environment: production
+        variables:
+          - task-hard-production
+        ServiceConnection: 'AKS BOT PROD-$(System.TeamProject)'

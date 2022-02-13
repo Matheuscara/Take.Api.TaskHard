@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["Take.Api.TaskHard.Facades/Take.Api.TaskHard.Facades.csproj", "Take.Api.TaskHard.Facades/"]
+COPY ["Take.Api.TaskHard.Models/Take.Api.TaskHard.Models.csproj", "Take.Api.TaskHard.Models/"]
+COPY ["Take.Api.TaskHard.Services/Take.Api.TaskHard.Services.csproj", "Take.Api.TaskHard.Services/"]
+COPY ["Take.Api.TaskHard/Take.Api.TaskHard.csproj", "Take.Api.TaskHard/"]
+
+RUN dotnet restore "Take.Api.TaskHard/Take.Api.TaskHard.csproj"
+COPY . .
+WORKDIR "/src/Take.Api.TaskHard"
+RUN dotnet build --no-restore "Take.Api.TaskHard.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
