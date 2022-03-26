@@ -28,8 +28,7 @@ namespace Take.Api.TaskHard.Services.Services
         {
             IGithubClientRepos api = RestEase.RestClient.For<IGithubClientRepos>("https://api.github.com");
             GitResponseList tokenResponse = await api.GetReposAsync(userGitHubBody.language, userGitHubBody.org, userGitHubBody.direction, userGitHubBody.type);
-            return tokenResponse;
-                
+            return tokenResponse;   
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Take.Api.TaskHard.Services.Services
     }
 
     [Header("Accept", "application/vnd.github.v3+json")]
-    [Header("User-Agent", "Andre1999Lopes")]
+    [Header("User-Agent", "Matheuscara")]
     public interface IGithubClientRepos
     {
         [Get("/search/repositories?q=language:{language} org:{org}&order={direction}&sort={type}")]
